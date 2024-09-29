@@ -1,13 +1,13 @@
 class Roll:
     def __init__(self, name: str, main_ingredient: str, rice_weight: float, seaweed_weight: float, fillings=None):
-        self.__name = name
+        self.name = name
         self.__main_ingredient = main_ingredient
         self.__rice_weight = rice_weight
         self.__seaweed_weight = seaweed_weight
         self.__fillings = fillings if fillings is not None else []
 
     def get_name(self):
-        return self.__name
+        return self.name
 
     def get_main_ingredient(self):
         return self.__main_ingredient
@@ -22,7 +22,7 @@ class Roll:
         return self.__fillings
 
     def set_name(self, name: str):
-        self.__name = name
+        self.name = name
 
     def set_main_ingredient(self, main_ingredient: str):
         self.__main_ingredient = main_ingredient
@@ -52,62 +52,6 @@ class Roll:
         return Roll(name, main_ingredient, rice_weight, seaweed_weight, fillings)
 
     def __str__(self):
-        return (f"Ролл: {self.__name}, Основной ингредиент: {self.__main_ingredient}, "
+        return (f"Ролл: {self.name}, Основной ингредиент: {self.__main_ingredient}, "
                 f"Вес риса: {self.__rice_weight} г, Вес водорослей: {self.__seaweed_weight} г, "
                 f"Начинка: {', '.join(self.__fillings)}")
-
-if __name__ == "__main__":
-
-    my_roll = Roll(name="Калифорнийский ролл", main_ingredient="Краб", rice_weight=150, seaweed_weight=10)
-    my_roll.add_filling("Авокадо")
-    my_roll.add_filling("Огурец")
-
-    print(my_roll)
-
-
-    my_roll.update_recipe(rice_weight=160, fillings=["Авокадо", "Огурец", "Острый майонез"])
-    print(my_roll)
-
-    custom_roll = my_roll.create_custom_roll("Кастомный ролл", "Тунец", 140, 15, ["Кунжут", "Острый соус"])
-    print(custom_roll)
-
-
-    class RollController:
-        def __init__(self, roll):
-            self.roll = roll
-
-        def restaurant_view(self):
-            return f"Ролл: {self.roll.get_name()}, Основной ингредиент: {self.roll.get_main_ingredient()}"
-
-        def website_view(self):
-            return (f"Ролл: {self.roll.get_name()}, Основной ингредиент: {self.roll.get_main_ingredient()}, "
-                    f"Начинка: {', '.join(self.roll.get_fillings())}")
-
-        def update_roll(self, rice_weight=None, seaweed_weight=None, fillings=None):
-            if rice_weight is not None:
-                self.roll.set_rice_weight(rice_weight)
-            if seaweed_weight is not None:
-                self.roll.set_seaweed_weight(seaweed_weight)
-            if fillings is not None:
-                self.roll.update_recipe(fillings=fillings)
-
-        def check_access(self, access_level):
-            return access_level == "admin"
-
-
-    if __name__ == "__main__":
-        my_roll = Roll(name="Калифорнийский ролл", main_ingredient="Краб", rice_weight=150, seaweed_weight=10)
-        my_roll.add_filling("Авокадо")
-        my_roll.add_filling("Огурец")
-
-        roll_controller = RollController(my_roll)
-
-        # Restaurant view
-        print(roll_controller.restaurant_view())
-
-        # Website view
-        print(roll_controller.website_view())
-
-        # Update roll
-        roll_controller.update_roll(rice_weight=160, fillings=["Авокадо", "Огурец", "Острый майонез"])
-        print(roll_controller.website_view())
