@@ -55,3 +55,4 @@ class Roll:
         return (f"Ролл: {self.name}, Основной ингредиент: {self.__main_ingredient}, "
                 f"Вес риса: {self.__rice_weight} г, Вес водорослей: {self.__seaweed_weight} г, "
                 f"Начинка: {', '.join(self.__fillings)}")
+    
