@@ -19,7 +19,7 @@ class Roll:
         return self.seaweed_weight
 
     def get_fillings(self):
-        return self.__fillings  # Здесь также используем частный атрибут
+        return self.__fillings
 
     def set_name(self, name: str):
         self.name = name
@@ -28,10 +28,10 @@ class Roll:
         self.main_ingredient = main_ingredient
 
     def set_rice_weight(self, rice_weight: float):
-        self.rice_weight = rice_weight  # Исправляем доступ к атрибуту
+        self.rice_weight = rice_weight
 
     def set_seaweed_weight(self, seaweed_weight: float):
-        self.seaweed_weight = seaweed_weight  # Исправляем доступ к атрибуту
+        self.seaweed_weight = seaweed_weight
 
     def add_filling(self, filling: str):
         self.__fillings.append(filling)
@@ -42,16 +42,16 @@ class Roll:
 
     def update_recipe(self, rice_weight=None, seaweed_weight=None, fillings=None):
         if rice_weight is not None:
-            self.rice_weight = rice_weight  # Исправляем доступ к атрибуту
+            self.rice_weight = rice_weight
         if seaweed_weight is not None:
-            self.seaweed_weight = seaweed_weight  # Исправляем доступ к атрибуту
+            self.seaweed_weight = seaweed_weight
         if fillings is not None:
             self.__fillings = fillings
 
     def create_custom_roll(self, name: str, main_ingredient: str, rice_weight: float, seaweed_weight: float, fillings):
         return Roll(name, main_ingredient, rice_weight, seaweed_weight)
 
-    def __str__(self):  # Исправляем объявление метода
+    def __str__(self):
         return (f"Ролл: {self.name}, Основной ингредиент: {self.main_ingredient}, "
                 f"Вес риса: {self.rice_weight} г, Вес водорослей: {self.seaweed_weight} г, "
                 f"Начинка: {', '.join(self.__fillings)}")
