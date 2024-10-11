@@ -17,3 +17,16 @@ class Controller:
             print("Данные успешно обновлены.")
         else:
             print("Ошибка обновления данных.")
+
+    def save_order_to_json(self, order_name):
+
+        self.model.create_order_json(order_name)
+        self.view.confirm_order_saved(order_name)
+
+    def get_data_from_json(self, filename, user_access_level):
+
+        if user_access_level >= 1:
+            order_data = self.model.read_order_json(filename)
+            self.view.display_order_data(order_data)
+        else:
+            self.view.access_denied()

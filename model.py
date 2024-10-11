@@ -1,3 +1,7 @@
+import json
+from datetime import datetime
+
+
 class Model:
     def __init__(self):
         self.data = {"info": "Информация о блюде"}
@@ -17,3 +21,28 @@ class Model:
             "Пицца": "static/images/pizza.jpg"
         }
         return images.get(dish_name, "Изображение не найдено")
+
+    def create_dish(self, dish_name, description):
+
+        self.data['dish_name'] = dish_name
+        self.data['description'] = description
+
+    def create_order_json(self, order_name):
+
+        order_info = {
+            "order_name": order_name,
+            "timestamp": datetime.now().isoformat()
+        }
+
+        with open(f"{order_name}.json", "w", encoding="utf-8") as json_file:
+            json.dump(order_info, json_file, ensure_ascii=False, indent=4)
+
+    def read_order_json(self, filename):
+
+        try:
+            with open(filename, "r", encoding="utf-8") as json_file:
+                return json.load(json_file)
+        except FileNotFoundError:
+            return "Файл не найден"
+        except json.JSONDecodeError:
+            return "Ошибка чтения файла"
