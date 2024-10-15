@@ -1,6 +1,6 @@
 import json
 class RollView:
-    def show_roll(self, roll):  # показ ролла
+    def show_roll(self, roll):
         print("Информация о ролле:")
         print(f"Название: {roll.get_name()}")
         print(f"Основной ингредиент: {roll.get_main_ingredient()}")
@@ -8,11 +8,11 @@ class RollView:
         print(f"Вес водорослей: {roll.get_seaweed_weight()} г")
         print(f"Начинки: {', '.join(roll.get_fillings())}")
 
-    def save_order_to_json(self, filename, data):  # сохранение ордера
+    def save_order_to_json(self, filename, data):
         with open(filename, 'w') as json_file:
             json.dump(data, json_file, ensure_ascii=False, indent=4)
 
-    def get_data_from_json(self, level, filename):  # почлучение даты от json
+    def get_data_from_json(self, level, filename):
         if level < 1:
             return "Доступ запрещен."
 
@@ -22,13 +22,13 @@ class RollView:
         except FileNotFoundError:
             return "Файл не найден."
 
-    def show_info(self, data):  # показывает информацию
+    def show_info(self, data):
         print("Информация о ролле:")
         for key, value in data.items():
             print(f"{key}: {value}")
 
 class AdminView:
-        def show_edit_options(self, roll):  # показывает изменения
+        def show_edit_options(self, roll):
 
             print("Редактирование ролла:")
             print(f"Текущее название: {roll.get_name()}")
@@ -55,7 +55,7 @@ class AdminView:
 
             print("Ролл был обновлен.")
 
-        def show_admin_view(self, roll):  # показывает изменения админу
+        def show_admin_view(self, roll):
             self.show_edit_options(roll)
 
 

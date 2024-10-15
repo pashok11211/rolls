@@ -1,7 +1,8 @@
-from roll.roll import Roll
+from model.roll import Roll
 from views.rollview import RollView, AdminView
-from controller.rollcontroll import RollController
 from datetime import datetime
+import json
+
 
 def main():
     # Создание ролла
@@ -9,46 +10,51 @@ def main():
     my_roll.add_filling("Авокадо")
     my_roll.add_filling("Огурец")
 
-    # Создание контроллера для работы с роллом
-    roll_controller = RollController(my_roll)
-
-    # Создание представлений
     roll_view = RollView()
     admin_view = AdminView()
 
-    # Отображаем информацию о ролле
     roll_view.show_roll(my_roll)
     admin_view.show_admin_view(my_roll)
 
-    # Сохранение заказа в JSON
+    order_name = "Заказ_клиента_1"
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"{order_name}_{timestamp}.json"
+
     order_data = {
-        "order_name": "Мой заказ",  # Имя заказа
-        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),  # Привязка ко времени
         "name": my_roll.get_name(),
         "main_ingredient": my_roll.get_main_ingredient(),
         "rice_weight": my_roll.get_rice_weight(),
         "seaweed_weight": my_roll.get_seaweed_weight(),
-        "fillings": my_roll.get_fillings()
-    }
-    filename = "order.json"
+        "fillings": my_roll.get_fillings(),
+        "timestamp": timestamp}
 
-    # Сохранение данных в JSON
     roll_view.save_order_to_json(filename, order_data)
+
+    # Предполагаемая логика проверки уровня доступа и чтения данных из JSON
+    def get_data_from_json(level, filename):
+        if level > 0:
+            try:
+                with open(filename, 'r') as file:
+                    return json.load(file)
+            except FileNotFoundError:
+                  return "Файл не найден"
+        else:
+            return "У вас недостаточно прав доступа для чтения файла"
 
     # Чтение данных из JSON с разрешенным доступом
     level = 1  # Уровень доступа
-    data = roll_view.get_data_from_json(level, filename)
+    data = get_data_from_json(level, filename)
 
     if isinstance(data, dict):
-        roll_view.show_info(data)  # Показ информации о заказе
+        roll_view.show_info(data)
     else:
         print(data)  # Вывод сообщения о недостатке прав доступа
 
-    # Чтение данных из JSON с недостатком доступа
-    denied_level = 0  # Уровень доступа, при котором доступ запрещен
-    access_denied_message = roll_view.get_data_from_json(denied_level, filename)
-    print(access_denied_message)  # Вывод сообщения о запрете доступа
+    # Чтение данных из json с недостатком доступа
+    denied_level = 0
+    access_denied_message = get_data_from_json(denied_level, filename)
+    print(access_denied_message)
 
-if __name__ == "__main__":  # Исправленная проверка
+
+if __name__ == "__main__":
     main()
-

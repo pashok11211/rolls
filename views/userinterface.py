@@ -1,4 +1,4 @@
-from controller import Controller
+from controllers.controller import Controller
 from model.model import Model
 from View import View
 
@@ -8,7 +8,7 @@ class Userinterface:
         self.view = View()
         self.controller = Controller(self.model, self.view)
 
-    def start(self):  # старт
+    def start(self):
         self.controller.show_info()
         self.controller.show_dish_image("Пицца")
         self.controller.update_data({"info": "Новая информация"})

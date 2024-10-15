@@ -1,5 +1,5 @@
 class AdminView:
-    def show_admin_view(self, roll): # права админа
+    def show_admin_view(self, roll):
         print("*** Администраторский вид ***")
         print(f"Название: {roll.name}")
         print(f"Основной ингредиент: {roll.main_ingredient}")
