@@ -2,7 +2,7 @@ from model.roll import Roll
 from views.rollview import RollView, AdminView
 from datetime import datetime
 import json
-
+import os
 
 def main():
     # Создание ролла
@@ -16,9 +16,12 @@ def main():
     roll_view.show_roll(my_roll)
     admin_view.show_admin_view(my_roll)
 
+    order = "orders"
+    os.makedirs(order, exist_ok=True)
+
     order_name = "Заказ_клиента_1"
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"{order_name}_{timestamp}.json"
+    filename = f"{order}/{order_name}_{timestamp}.json"
 
     order_data = {
         "name": my_roll.get_name(),
@@ -30,7 +33,7 @@ def main():
 
     roll_view.save_order_to_json(filename, order_data)
 
-    # Предполагаемая логика проверки уровня доступа и чтения данных из JSON
+    # логика проверки уровня доступа и чтения данных из JSON
     def get_data_from_json(level, filename):
         if level > 0:
             try:

@@ -1,5 +1,6 @@
+import json
 class Roll:
-    def __init__(self, name, main_ingredient, rice_weight, seaweed_weight):
+    def __init__(self, name, main_ingredient, rice_weight, seaweed_weight,):
         self.name = name
         self.main_ingredient = main_ingredient
         self.rice_weight = rice_weight
@@ -55,3 +56,17 @@ class Roll:
         return (f"Ролл: {self.name}, Основной ингредиент: {self.main_ingredient}, "
                 f"Вес риса: {self.rice_weight} г, Вес водорослей: {self.seaweed_weight} г, "
                 f"Начинка: {', '.join(self.__fillings)}")
+
+    def save_order_to_json(self, filename, data):
+        with open(filename, 'w') as json_file:
+            json.dump(data, json_file, ensure_ascii=False, indent=4)
+
+    def get_data_from_json(self, level, filename):
+        if level < 1:
+            return "Доступ запрещен."
+
+        try:
+            with open(filename, 'r') as json_file:
+                return json.load(json_file)
+        except FileNotFoundError:
+            return "Файл не найден."
