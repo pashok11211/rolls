@@ -5,6 +5,11 @@ import json
 import os
 
 def main():
+    """
+    Основная функция программы.
+    Создает ролл, выводит информацию о нем, сохраняет заказ в JSON-файл
+    и демонстрирует логику проверки уровня доступа к данным из JSON.
+    """
     # Создание ролла
     my_roll = Roll(name="Калифорнийский ролл", main_ingredient="Краб", rice_weight=150, seaweed_weight=10)
     my_roll.add_filling("Авокадо")
@@ -35,6 +40,15 @@ def main():
 
     # логика проверки уровня доступа и чтения данных из JSON
     def get_data_from_json(level, filename):
+        """
+        Функция для чтения данных из JSON-файла с проверкой уровня доступа.
+        level Уровень доступа.
+        filename Путь к файлу.
+
+
+         Данные из JSON-файла, если доступ разрешен.
+         Сообщение об ошибке, если доступа нет.
+        """
         if level > 0:
             try:
                 with open(filename, 'r') as file:
@@ -59,5 +73,5 @@ def main():
     print(access_denied_message)
 
 
-if __name__ == "__main__":
+if __name__ == "main":
     main()
